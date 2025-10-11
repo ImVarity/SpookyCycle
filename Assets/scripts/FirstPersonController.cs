@@ -22,6 +22,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] float sprintMultiplier = 1.8f;
 
+    [SerializeField] AudioSource jumpAudio;
+
     CharacterController cc;
     float pitch;
     float velY;
@@ -73,16 +75,13 @@ public class FirstPersonController : MonoBehaviour
         bool isSprinting = sprintAction.action.IsPressed();
         float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
 
-        if (sprintAction.action.IsPressed() && Time.frameCount % 10 == 0)
-        Debug.Log("Sprinting held");
-
-
         // jump + gravity
         if (cc.isGrounded)
         {
             velY = -2f; // small downward force to keep grounded
             if (jumpAction.action.WasPressedThisFrame())
                 velY = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                jumpAudio.Play();
         }
         velY += gravity * Time.deltaTime;
 
