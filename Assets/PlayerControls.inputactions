@@ -7,7 +7,7 @@
             "id": "ef1cac8b-fdba-49bd-b3b4-cad11a75dafb",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Sprint",
                     "type": "Button",
                     "id": "ed831bcc-d010-4835-bedf-15fef798594c",
                     "expectedControlType": "",
@@ -47,11 +47,11 @@
                 {
                     "name": "",
                     "id": "43e32621-e314-4184-897c-a13060393576",
-                    "path": "",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

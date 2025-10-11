@@ -19,6 +19,9 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] InputActionReference lookAction;
     [SerializeField] InputActionReference jumpAction;
 
+    [SerializeField] InputActionReference sprintAction;
+    [SerializeField] float sprintMultiplier = 1.8f;
+
     CharacterController cc;
     float pitch;
     float velY;
@@ -38,6 +41,7 @@ public class FirstPersonController : MonoBehaviour
         moveAction.action.Enable();
         lookAction.action.Enable();
         jumpAction.action.Enable();
+        sprintAction.action.Enable();
     }
 
     void OnDisable()
@@ -45,6 +49,7 @@ public class FirstPersonController : MonoBehaviour
         moveAction.action.Disable();
         lookAction.action.Disable();
         jumpAction.action.Disable();
+        sprintAction.action.Disable();
     }
 
 
@@ -65,6 +70,13 @@ public class FirstPersonController : MonoBehaviour
         Vector3 move = transform.right * move2.x + transform.forward * move2.y;
         if (move.sqrMagnitude > 1f) move.Normalize();
 
+        bool isSprinting = sprintAction.action.IsPressed();
+        float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+
+        if (sprintAction.action.IsPressed() && Time.frameCount % 10 == 0)
+        Debug.Log("Sprinting held");
+
+
         // jump + gravity
         if (cc.isGrounded)
         {
@@ -74,7 +86,7 @@ public class FirstPersonController : MonoBehaviour
         }
         velY += gravity * Time.deltaTime;
 
-        Vector3 velocity = move * speed + Vector3.up * velY;
+        Vector3 velocity = move * currentSpeed + Vector3.up * velY;
         cc.Move(velocity * Time.deltaTime);
     }
 }
